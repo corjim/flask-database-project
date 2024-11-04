@@ -99,74 +99,74 @@ def show_playlist(playlist_id):
     #     return flash (f' Playlist not found') 
 
 
-    return render_template('playlist.html',playlists=playlists)
+    return render_template("playlist.html",playlists=playlists)
 
-# @app.route("/playlists/add", methods=["GET", "POST"])
-# def add_playlist():
-#     """Handle add-playlist form:
+@app.route("/playlists/add", methods=["GET", "POST"])
+def add_playlist():
+    """Handle add-playlist form:
 
-#     - if form not filled out or invalid: show form
-#     - if valid: add playlist to SQLA and redirect to list-of-playlists
-#     """
+    - if form not filled out or invalid: show form
+    - if valid: add playlist to SQLA and redirect to list-of-playlists
+    """
 
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
-
-# ##############################################################################
-# # Song routes
+    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
 
-# @app.route("/songs")
-# def show_all_songs():
-#     """Show list of songs."""
-
-#     songs = Song.query.all()
-#     return render_template("songs.html", songs=songs)
+##############################################################################
+# Song routes
 
 
-# @app.route("/songs/<int:song_id>")
-# def show_song(song_id):
-#     """return a specific song"""
+@app.route("/songs")
+def show_all_songs():
+    """Show list of songs."""
 
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
-
-# @app.route("/songs/add", methods=["GET", "POST"])
-# def add_song():
-#     """Handle add-song form:
-
-#     - if form not filled out or invalid: show form
-#     - if valid: add playlist to SQLA and redirect to list-of-songs
-#     """
-
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    songs = Song.query.all()
+    return render_template("songs.html", songs=songs)
 
 
-# @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
-# def add_song_to_playlist(playlist_id):
-#     """Add a playlist and redirect to list."""
+@app.route("/songs/<int:song_id>")
+def show_song(song_id):
+    """return a specific song"""
 
-#     # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-#     # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
 
-#     playlist = Playlist.query.get_or_404(playlist_id)
-#     form = NewSongForPlaylistForm()
+@app.route("/songs/add", methods=["GET", "POST"])
+def add_song():
+    """Handle add-song form:
 
-#     # Restrict form to songs not already on this playlist
+    - if form not filled out or invalid: show form
+    - if valid: add playlist to SQLA and redirect to list-of-songs
+    """
 
-#     curr_on_playlist = ...
-#     form.song.choices = ...
+    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-#     if form.validate_on_submit():
 
-#         # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+@app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
+def add_song_to_playlist(playlist_id):
+    """Add a playlist and redirect to list."""
 
-#         return redirect(f"/playlists/{playlist_id}")
+    # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-#     return render_template("add_song_to_playlist.html",
-#                            playlist=playlist,
-#                            form=form)
+    # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
+
+    playlist = Playlist.query.get_or_404(playlist_id)
+    form = NewSongForPlaylistForm()
+
+    # Restrict form to songs not already on this playlist
+
+    curr_on_playlist = ...
+    form.song.choices = ...
+
+    if form.validate_on_submit():
+
+        # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+
+        return redirect(f"/playlists/{playlist_id}")
+
+    return render_template("add_song_to_playlist.html",
+                           playlist=playlist,
+                           form=form)
 
 
 
