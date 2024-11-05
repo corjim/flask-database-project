@@ -7,17 +7,17 @@
 <div class="jumbotron">
     <h2>You're viewing playlist details</h2>
 
-    <!-- <h1>{{ playlist.name }}!</h1>
+    <h1>{{ playlist.name }}!</h1>
+
     {% if playlist.description %}
     <p class="lead">{{ playlist.description }}</p>
-    {% endif %} -->
+    {% endif %}
 </div>
 
 
 <div class="text-danger">
-    SHOW ALL OF THE SONGS IN THIS PLAYLIST HERE
 
-    {% for song in playlists.songs %}
+    {% for song in playlist.songs %}
     <ul>
         <li>
             <b>{{song.title}}</b> by <i>{{song.artist}}</i>
@@ -32,5 +32,6 @@
         Add Song To Playlist
     </a>
 </p>
+
 
 {% endblock %}
