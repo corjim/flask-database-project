@@ -2,8 +2,8 @@ from models import Playlist, PlaylistSong,Song, db
 from flask_sqlalchemy import SQLAlchemy
 
 a = Playlist(name="Jazz", description='Groove for days')
-b = Playlist(name="Bluez", description='Night jolly')
-c = Playlist(name="Pop", description='Mood setter')
+b = Playlist(name="Bluez", description='Soul jolly')
+c = Playlist(name="Pop", description='Mood-setter')
 d = Playlist(name="Afro", description='Dance the sweats off')
 
 db.session.add(a)
@@ -13,12 +13,12 @@ db.session.add(d)
 db.session.commit()
 
 
-y = Song(title= 'we could be heros',artist='Claire',)
-u = Song(title= 'danc with my father',artist='Luther')
-t = Song(title= 'Best night',artist='Usher',)
-q = Song(title= 'Hit em',artist='2Pac',)
-y = Song(title= 'yeye',artist='Burna Boy',)
-z = Song(title= 'Happiness',artist='Asake',)
+y = Song(title= 'we could be heros',artist='Claire')
+u = Song(title= 'dancing with father',artist='Luther V')
+t = Song(title= 'Best night',artist='Usher')
+q = Song(title= 'Hit em',artist='2Pac')
+y = Song(title= 'yeye',artist='Burna Boy')
+z = Song(title= 'Happiness',artist='Asake')
 
 
 db.session.add(y)
@@ -45,3 +45,4 @@ db.session.add(play3)
 db.session.add(play4)
 db.session.add(play6)
 db.session.commit()
+

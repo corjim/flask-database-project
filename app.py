@@ -9,7 +9,8 @@ from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
 
 app = Flask(__name__)
 # Please do not modify the following line on submission
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist-app'
+# app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('SUPABASE_DB_URL'), 'postgresql:///playlist-app')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres.mlcupgkougldvbyodeah:DJdatabase@2024@aws-0-us-west-1.pooler.supabase.com:6543/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_ECHO'] = True
 
@@ -20,53 +21,8 @@ db.drop_all()
 db.create_all()
 
 
-app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
+app.config['SECRET_KEY'] = "The sky is the limit"
 
-
-a = Playlist(name="Jazz", description='Groove for days')
-b = Playlist(name="Bluez", description='Night jolly')
-c = Playlist(name="Pop", description='Mood setter')
-d = Playlist(name="Afro", description='Dance the sweats off')
-
-db.session.add(a)
-db.session.add(b)
-db.session.add(c)
-db.session.add(d)
-db.session.commit()
-
-
-y = Song(title= 'we could be heros',artist='Claire')
-u = Song(title= 'dancing with father',artist='Luther V')
-t = Song(title= 'Best night',artist='Usher')
-q = Song(title= 'Hit em',artist='2Pac')
-y = Song(title= 'yeye',artist='Burna Boy')
-z = Song(title= 'Happiness',artist='Asake')
-
-
-db.session.add(y)
-db.session.add(t)
-db.session.add(u)
-db.session.add(q)
-db.session.add(y)
-db.session.add(z)
-db.session.commit()
-
-
-play1 = PlaylistSong(playlist_id=a.id, song_id=y.id)
-play2 = PlaylistSong(playlist_id=a.id, song_id=t.id)
-
-play3 = PlaylistSong(playlist_id=b.id, song_id=u.id)
-play4 = PlaylistSong(playlist_id=b.id, song_id=q.id)
-
-play5 = PlaylistSong(playlist_id=d.id, song_id=y.id)
-play6 = PlaylistSong(playlist_id=d.id, song_id=z.id)
-
-db.session.add(play1)
-db.session.add(play2)
-db.session.add(play3)
-db.session.add(play4)
-db.session.add(play6)
-db.session.commit()
 
 
 @app.route("/")
@@ -84,10 +40,8 @@ def root():
 def show_all_playlists():
     """Return a list of playlists."""
 
-
     playlists = Playlist.query.all()
     return render_template("playlists.html", playlists=playlists)
-
 
 @app.route("/playlists/<int:playlist_id>")
 def show_playlist(playlist_id):
@@ -141,8 +95,6 @@ def show_all_songs():
 def show_song(song_id):
     """return a specific song"""
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
     song = Song.query.get(song_id)
 
     if not song:
@@ -175,25 +127,13 @@ def add_song():
     else:
         return render_template('new_song.html', form=form)
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
 
 @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
 def add_song_to_playlist(playlist_id):
     """Add a playlist and redirect to list."""
 
-    # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
-    # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
-
     playlist = Playlist.query.get_or_404(playlist_id)
     form = NewSongForPlaylistForm()
-
-    # Restrict form to songs not already on this playlist
-
-    # curr_on_playlist = [s.id for s in playlist.songs]
-    # form.song.choices = (db.session.query(Song.id, Song.title)
-    #                      .filter(Song.id.notin_(curr_on_playlist)).all())
 
     curr_on_playlist = [s.id for s in playlist.songs]
     form.song.choices = [
@@ -202,9 +142,6 @@ def add_song_to_playlist(playlist_id):
     .all()]       
 
     if form.validate_on_submit():
-
-        # song = Song.query.get(form.song.data)
-        # playlist.songs.append(song)
 
         playlist_song = PlaylistSong(song_id=form.song.data, playlist_id=playlist_id)
 
